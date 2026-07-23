@@ -30,20 +30,20 @@ function getComputerChoice(){
 
     if (choice == 0) {
         return rock;
-        crock.style.backgroundColor = 'lightblue';
+       // crock.style.backgroundColor = 'lightblue';
     } else if (choice == 1) {
         return paper;
-        cpaper.style.backgroundColor = 'lightblue';
+       // cpaper.style.backgroundColor = 'lightblue';
     } else if (choice == 2) {
         return scissors;
-        cscissors.style.backgroundColor = 'lightblue';
+       // cscissors.style.backgroundColor = 'lightblue';
     }
 
-    setTimeout(function() {
+   /* setTimeout(function() {
                 crock.style.backgroundColor = ''; //reverts button to original color after 3 secs
                 cscissors.style.backgroundColor = '';
                 cpaper.style.backgroundColor = '';
-            }, 2000); //3000ms = 3 seconds
+            }, 2000); //3000ms = 3 seconds*/
 }
 
 
@@ -136,7 +136,27 @@ let getuserchoice = () => {
 
 console.log(getuserchoice());
 
+
+//get computers slection + highlight slection
 let compchoice = getComputerChoice();
+let compcolor = (compchoice) => {
+    switch (compchoice) {
+        case 'rock':
+            crock.style.backgroundColor = 'lightblue';
+        case 'paper':
+            cpaper.style.backgroundColor = 'lightblue';
+        case 'scissors':
+            cscissors.style.backgroundColor = 'lightblue';
+
+            
+        setTimeout(function() {
+            crock.style.backgroundColor = ''; //reverts button to original color after secs passed
+            cscissors.style.backgroundColor = '';
+            cpaper.style.backgroundColor = '';
+        }, 2000); //3000ms = 3 seconds
+    }
+}
+compcolor(compchoice);
 
 
 if (userScore > computerScore) {
@@ -147,17 +167,17 @@ if (userScore > computerScore) {
     console.log("IT'S A TIE!!!");
 }
 
-
+/*
 do {
     compchoice = getComputerChoice();
     playRound(compchoice, getuserchoice);
 } while ((userScore < 5) && (computerScore < 5)); 
 
+*/
 
 
 
-
-
+/*
 
 for (let i = 1; i <= 5; i++){
 
