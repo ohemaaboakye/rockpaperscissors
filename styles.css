@@ -10,15 +10,18 @@ body {
 .header {
     display: flex;
     background-color:rgb(68, 16, 16);
-    gap: 1000px;
+    justify-content: space-between;
     p {
         color:rgb(231, 223, 223);
         font-weight: 800px; 
-        font-size: 18px;
+        font-size: 12px;
         margin-left: 20px;
     }
 }
 
+#name {
+    margin-right: 15px;
+}
 
 #heading {
     display: flex; 
@@ -96,4 +99,15 @@ body {
     margin-left: 20px;
     font-size: 25px;
     font-weight: bold;
+}
+
+.score_display {
+    display: flex; 
+    justify-content: space-evenly;
+}
+
+.final_statement {
+    display:flex;
+    justify-content: center;
+    color: rgb(200, 34, 34);
 }

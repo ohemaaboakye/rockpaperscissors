@@ -1,6 +1,7 @@
 let userScore = 0;
 let computerScore = 0;
-let userchoice = null;
+let userchoice = '';
+//let humanchoice = null;
 
 
 //fetch users ui buttons
@@ -12,6 +13,16 @@ let scissors = document.querySelector('#scissors');
 let crock = document.querySelector('#crock');
 let cpaper = document.querySelector('#cpaper');
 let cscissors = document.querySelector('#cscissors');
+
+
+//fetch where scores will be updated
+let ui_user = document.querySelector('#user_ui');
+let ui_comp = document.querySelector('#comp_ui');
+
+let final_sec = document.querySelector('.final');
+let winner = document.createElement("h1");
+winner.classList.add("final_statement"); //just so this can be styled in css file
+
 
 
 
@@ -38,12 +49,6 @@ function getComputerChoice(){
         return scissors;
        // cscissors.style.backgroundColor = 'lightblue';
     }
-
-   /* setTimeout(function() {
-                crock.style.backgroundColor = ''; //reverts button to original color after 3 secs
-                cscissors.style.backgroundColor = '';
-                cpaper.style.backgroundColor = '';
-            }, 2000); //3000ms = 3 seconds*/
 }
 
 
@@ -91,131 +96,87 @@ function playRound(computerchoice, userchoice ){
             break;
     }
 
-    console.log('You chose %s. Your current score is: %d', userchoice, userScore);
-    console.log('The computer chose %s. Its current score is: %d', computerchoice, computerScore);
-
 }
 
-//fetch users pick on click
-function userPick(event){
-    if (event.target === rock){
-        //userchoice = 'rock';
-        event.target.style.backgroundColor = 'lightblue';
-    } else if (event.target === paper){
-        //userchoice = 'paper';
-        event.target.style.backgroundColor = 'lightblue';
-    } else if (event.target === scissors){
-        //userchoice = 'scissors';
-        event.target.style.backgroundColor = 'lightblue';
-    }
+//once someone reaches 5 points, they are declared the winner
+//for (let i = 1; i <= 5; i++) {
 
-    setTimeout(function() {
-        event.target.style.backgroundColor = ''; //reverts button to original color after 3 secs
-    }, 2000); //3000ms = 3 seconds
-
-    userchoice = event.target.id;
-    getuserchoice();
-    
-}
-
-
-
-rock.addEventListener('click', userPick);
-paper.addEventListener('click', userPick);
-scissors.addEventListener('click', userPick);
-
-/*
-function getuserchoice(){
-    console.log(userchoice)
-    return userchoice;
-}*/
-
-let getuserchoice = () => {
-    return userchoice;
-}
-
-console.log(getuserchoice());
-
-
-//get computers slection + highlight slection
-let compchoice = getComputerChoice();
-let compcolor = (compchoice) => {
-    switch (compchoice) {
-        case 'rock':
-            crock.style.backgroundColor = 'lightblue';
-        case 'paper':
-            cpaper.style.backgroundColor = 'lightblue';
-        case 'scissors':
-            cscissors.style.backgroundColor = 'lightblue';
-
-            
-        setTimeout(function() {
-            crock.style.backgroundColor = ''; //reverts button to original color after secs passed
-            cscissors.style.backgroundColor = '';
-            cpaper.style.backgroundColor = '';
-        }, 2000); //3000ms = 3 seconds
-    }
-}
-compcolor(compchoice);
-
-
-if (userScore > computerScore) {
-    console.log("Congrats! You won the game!");
-} else if (computerScore > userScore) {
-    console.log("Sorry. better luck next time :( ");
-} else {
-    console.log("IT'S A TIE!!!");
-}
-
-/*
-do {
-    compchoice = getComputerChoice();
-    playRound(compchoice, getuserchoice);
-} while ((userScore < 5) && (computerScore < 5)); 
-
-*/
-
-
-
-/*
-
-for (let i = 1; i <= 5; i++){
-
-
-    //gets computer choice + highlights it
-    compchoice = getComputerChoice();
-    let compcolor = (compchoice) => {
-        switch (compchoice) {
-            case 'rock':
-                crock.style.backgroundColor = 'lightblue';
-            case 'paper':
-                cpaper.style.backgroundColor = 'lightblue';
-            case 'scissors':
-                cscissors.style.backgroundColor = 'lightblue';
-
-            
-            setTimeout(function() {
-                crock.style.backgroundColor = ''; //reverts button to original color after 3 secs
-                cscissors.style.backgroundColor = '';
-                cpaper.style.backgroundColor = '';
-            }, 2000); //3000ms = 3 seconds
+    document.addEventListener('click', function(event){
+        
+        if (event.target.id === 'rock') {
+            userchoice = 'rock';
+            rock.style.backgroundColor = 'lightblue'; //creates highlight effect
+         } else if (event.target.id === 'paper'){
+            userchoice = 'paper';
+            paper.style.backgroundColor = 'lightblue'; //creates highlight effect
+        } else if (event.target.id === 'scissors'){
+            userchoice = 'scissors';
+            scissors.style.backgroundColor = 'lightblue'; //creates highlight effect
         }
-    }
-    compcolor();
+        console.log(userchoice);
 
-    //now time to get users choice
-    let humanchoice = getuserchoice();
-    rock.addEventListener('click', userPick);
-    paper.addEventListener('click', userPick);
-    scissors.addEventListener('click', userPick);
+        let compchoice = getComputerChoice();
+        let compcolor = (choice) => {
+            if (choice === 'rock'){
+                crock.style.backgroundColor = 'lightblue';
+                } else if (choice === 'paper'){
+                cpaper.style.backgroundColor = 'lightblue';
+                } else if (choice === 'scissors'){
+                cscissors.style.backgroundColor = 'lightblue';
+                }
+            }
+
+        compcolor(compchoice);
+        //then revert computers collor
+        setTimeout(function(){
+            crock.style.backgroundColor = '';
+            cpaper.style.backgroundColor = '';
+            cscissors.style.backgroundColor = '';
+        }, 2000);
+        
 
 
+        setTimeout(function() {
+                rock.style.backgroundColor = ''; //reverts button to original color after secs passed
+                scissors.style.backgroundColor = '';
+                paper.style.backgroundColor = '';
+            }, 2000); //3000ms = 3 seconds
+
+        //time to play the round
+
+        playRound(compchoice, userchoice);
+        
+
+        
+        
+        while (userScore == 5 || computerScore == 5){
+            
+            if (userScore == 5){
+                console.log("Congrats! You won the game!");
+                winner.textContent = "Congrats, user! You won!"
+                final_sec.append(winner);
+                break;
+             } else if (computerScore == 5){
+                console.log("Sorry. better luck next time :( ");
+                winner.textContent = "The computer has won... better luck next time";
+                final_sec.append(winner);
+                break;
+            }
+
+            
+
+        }
+
+        console.log(userScore);
+        console.log(computerScore);
+
+        ui_user.textContent = userScore;
+        ui_comp.textContent = computerScore;
+
+        
+
+
+            
+    });
     
-    playRound(compchoice, getuserchoice);
-    
-}  */
-
-
-
-
-//playRound(compchoice, humanchoice);
+  
