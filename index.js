@@ -154,11 +154,17 @@ document.addEventListener('click', function(event){
         function reset() {
             console.log(userScore);
             console.log(computerScore);
-            userScore = 0;
-            computerScore = 0;
             is_winner = false;
             winner.textContent = '';
+            repeat.remove();
+            userScore = 0;
+            computerScore = 0;
+            console.log(userScore);
+            console.log(computerScore);
             
+            ui_user.textContent = userScore;
+            ui_comp.textContent = computerScore;
+
         }
         
         
