@@ -1,5 +1,18 @@
-userScore = 0;
-computerScore = 0;
+let userScore = 0;
+let computerScore = 0;
+let userchoice = null;
+
+
+//fetch users ui buttons
+let rock = document.querySelector('#rock');
+let paper = document.querySelector('#paper');
+let scissors = document.querySelector('#scissors');
+
+//computers selection buttons from ui
+let crock = document.querySelector('#crock');
+let cpaper = document.querySelector('#cpaper');
+let cscissors = document.querySelector('#cscissors');
+
 
 
 function getComputerChoice(){
@@ -17,19 +30,22 @@ function getComputerChoice(){
 
     if (choice == 0) {
         return rock;
+        crock.style.backgroundColor = 'lightblue';
     } else if (choice == 1) {
         return paper;
+        cpaper.style.backgroundColor = 'lightblue';
     } else if (choice == 2) {
         return scissors;
+        cscissors.style.backgroundColor = 'lightblue';
     }
+
+    setTimeout(function() {
+                crock.style.backgroundColor = ''; //reverts button to original color after 3 secs
+                cscissors.style.backgroundColor = '';
+                cpaper.style.backgroundColor = '';
+            }, 2000); //3000ms = 3 seconds
 }
 
-function getUserChoice() {
-    const userInput = prompt("rock, paper, or scissors?");
-    let userChoice = userInput.toLowerCase();
-   
-    return userChoice; 
-}
 
 function playRound(computerchoice, userchoice ){
 
@@ -80,18 +96,47 @@ function playRound(computerchoice, userchoice ){
 
 }
 
+//fetch users pick on click
+function userPick(event){
+    if (event.target === rock){
+        //userchoice = 'rock';
+        event.target.style.backgroundColor = 'lightblue';
+    } else if (event.target === paper){
+        //userchoice = 'paper';
+        event.target.style.backgroundColor = 'lightblue';
+    } else if (event.target === scissors){
+        //userchoice = 'scissors';
+        event.target.style.backgroundColor = 'lightblue';
+    }
 
-let compchoice = getComputerChoice();
-let humanchoice = getUserChoice();
+    setTimeout(function() {
+        event.target.style.backgroundColor = ''; //reverts button to original color after 3 secs
+    }, 2000); //3000ms = 3 seconds
 
-
-for (let i = 1; i <= 5; i++){
-    console.log("ROUND %d", i);
-    compchoice = getComputerChoice();
-    humanchoice = getUserChoice();
-    playRound(compchoice, humanchoice);
+    userchoice = event.target.id;
+    getuserchoice();
     
 }
+
+
+
+rock.addEventListener('click', userPick);
+paper.addEventListener('click', userPick);
+scissors.addEventListener('click', userPick);
+
+/*
+function getuserchoice(){
+    console.log(userchoice)
+    return userchoice;
+}*/
+
+let getuserchoice = () => {
+    return userchoice;
+}
+
+console.log(getuserchoice());
+
+let compchoice = getComputerChoice();
 
 
 if (userScore > computerScore) {
@@ -99,8 +144,58 @@ if (userScore > computerScore) {
 } else if (computerScore > userScore) {
     console.log("Sorry. better luck next time :( ");
 } else {
-    console.log("IT'S A TIE!!!")
+    console.log("IT'S A TIE!!!");
 }
+
+
+do {
+    compchoice = getComputerChoice();
+    playRound(compchoice, getuserchoice);
+} while ((userScore < 5) && (computerScore < 5)); 
+
+
+
+
+
+
+
+for (let i = 1; i <= 5; i++){
+
+
+    //gets computer choice + highlights it
+    compchoice = getComputerChoice();
+    let compcolor = (compchoice) => {
+        switch (compchoice) {
+            case 'rock':
+                crock.style.backgroundColor = 'lightblue';
+            case 'paper':
+                cpaper.style.backgroundColor = 'lightblue';
+            case 'scissors':
+                cscissors.style.backgroundColor = 'lightblue';
+
+            
+            setTimeout(function() {
+                crock.style.backgroundColor = ''; //reverts button to original color after 3 secs
+                cscissors.style.backgroundColor = '';
+                cpaper.style.backgroundColor = '';
+            }, 2000); //3000ms = 3 seconds
+        }
+    }
+    compcolor();
+
+    //now time to get users choice
+    let humanchoice = getuserchoice();
+    rock.addEventListener('click', userPick);
+    paper.addEventListener('click', userPick);
+    scissors.addEventListener('click', userPick);
+
+
+    
+    playRound(compchoice, getuserchoice);
+    
+}  */
+
+
 
 
 //playRound(compchoice, humanchoice);
