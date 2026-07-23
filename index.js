@@ -25,6 +25,9 @@ winner.classList.add("final_statement"); //just so this can be styled in css fil
 
 let is_winner = false;
 
+let replay = document.querySelector(".replay");
+let repeat = document.createElement("button");
+
 
 
 function getComputerChoice(){
@@ -102,8 +105,9 @@ function playRound(computerchoice, userchoice ){
 //once someone reaches 5 points, they are declared the winner
 //for (let i = 1; i <= 5; i++) {
 
-    document.addEventListener('click', function(event){
-        
+document.addEventListener('click', function(event){
+    
+    if ((event.target.id === 'rock') || (event.target.id === 'paper') || (event.target.id === 'scissors')){
         if (event.target.id === 'rock') {
             userchoice = 'rock';
             rock.style.backgroundColor = 'lightblue'; //creates highlight effect
@@ -147,7 +151,15 @@ function playRound(computerchoice, userchoice ){
 
         playRound(compchoice, userchoice);
         
-
+        function reset() {
+            console.log(userScore);
+            console.log(computerScore);
+            userScore = 0;
+            computerScore = 0;
+            is_winner = false;
+            winner.textContent = '';
+            
+        }
         
         
         while ((userScore == 5 || computerScore == 5) && (is_winner === false)){
@@ -155,17 +167,26 @@ function playRound(computerchoice, userchoice ){
             
             
             if (userScore == 5){
-                console.log("Congrats! You won the game!");
-                winner.textContent = "Congrats, user! You won!"
+               // console.log("Congrats! You won the game!");
+                winner.textContent = "Congrats, user! You won! Want to play again?"
                 final_sec.append(winner);
                 is_winner = true;
+                repeat.textContent = 'Replay';
+                replay.append(repeat);
+
+                repeat.addEventListener('click', reset);
+
                 break;
                 
              } else if (computerScore == 5){
-                console.log("Sorry. better luck next time :( ");
-                winner.textContent = "The computer has won... better luck next time";
+                //console.log("Sorry. better luck next time :( ");
+                winner.textContent = "The computer has won... better luck next time:( Want to try again?";
                 final_sec.append(winner);
                 is_winner = true;
+                repeat.textContent = 'Replay';
+                replay.append(repeat);
+                
+                repeat.addEventListener('click', reset);
                 break;
                 
             }
@@ -175,11 +196,11 @@ function playRound(computerchoice, userchoice ){
 
         }
 
-        console.log(userScore);
-        console.log(computerScore);
+
 
         ui_user.textContent = userScore;
         ui_comp.textContent = computerScore;
+    }
 
         
 
