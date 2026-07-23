@@ -23,6 +23,7 @@ let final_sec = document.querySelector('.final');
 let winner = document.createElement("h1");
 winner.classList.add("final_statement"); //just so this can be styled in css file
 
+let is_winner = false;
 
 
 
@@ -132,7 +133,7 @@ function playRound(computerchoice, userchoice ){
             crock.style.backgroundColor = '';
             cpaper.style.backgroundColor = '';
             cscissors.style.backgroundColor = '';
-        }, 2000);
+        }, 1500);
         
 
 
@@ -140,7 +141,7 @@ function playRound(computerchoice, userchoice ){
                 rock.style.backgroundColor = ''; //reverts button to original color after secs passed
                 scissors.style.backgroundColor = '';
                 paper.style.backgroundColor = '';
-            }, 2000); //3000ms = 3 seconds
+            }, 1500); //3000ms = 3 seconds
 
         //time to play the round
 
@@ -149,21 +150,28 @@ function playRound(computerchoice, userchoice ){
 
         
         
-        while (userScore == 5 || computerScore == 5){
+        while ((userScore == 5 || computerScore == 5) && (is_winner === false)){
+
+            
             
             if (userScore == 5){
                 console.log("Congrats! You won the game!");
                 winner.textContent = "Congrats, user! You won!"
                 final_sec.append(winner);
+                is_winner = true;
                 break;
+                
              } else if (computerScore == 5){
                 console.log("Sorry. better luck next time :( ");
                 winner.textContent = "The computer has won... better luck next time";
                 final_sec.append(winner);
+                is_winner = true;
                 break;
+                
             }
 
-            
+    
+        
 
         }
 
